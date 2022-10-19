@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:33:46 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 15:07:33 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:13:46 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int main(int argc, char *argv[])
 {
-	t_philo	philo;
+	t_data	*data;
 
-	if (check_args(&philo, argc, argv))
+	if (check_args(argc, argv))
 		return (ARGERR);
-	start_threads(&philo);
+	data = create_data(argc, argv);
+	start_threads(data);
 	return (0);
 }

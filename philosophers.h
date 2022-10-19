@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 15:34:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:08:02 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,35 @@
 
 # define DIE_MSG "%ld ms %d died\n"
 
+typedef struct s_data
+{
+	int					num_philo;
+	int					tm_to_sleep;
+	int					tm_to_eat;
+	int					tm_to_die;
+	int					total_eat;
+	int					is_dead;
+	long int			start;
+	pthread_t			*philos;
+	pthread_mutex_t		*forks;
+}			t_data;
+
 typedef struct s_philo
 {
-	int						num_philo;
-	int						tm_to_sleep;
-	int						tm_to_eat;
-	int						tm_to_die;
-	int						total_eat;
-	int						*total_eated;
-	int						i;
-	long int				*die_count;
-	long int				*time_count;
-	long int				start;
-	int						is_dead;
-	pthread_t				*philos;
-	pthread_mutex_t			*forks;
+	int			total_eated;
+	int			id;
+	long int	die_count;
+	t_data		*data;
 }				t_philo;
+
 
 /* init.c */
 
-int		check_args(t_philo *philo, int argc, char **argv);
-void	create_mutex(t_philo *philo);
-void	start_threads(t_philo *philo);
+int		check_args(int argc, char **argv);
+t_data	*create_data(int argc, char **argv);
+void	create_mutex(t_data *data);
+t_philo	**create_philo(t_data *data);
+void	start_threads(t_data *data);
 void	*philosopher(void *arg);
 
 /* actions.c */

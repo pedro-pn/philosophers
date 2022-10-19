@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 16:21:09 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/19 19:13:06 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	get_fork(t_philo *philo)
 	pthread_mutex_t	*right_fork;
 	struct timeval	time;
 
-	if (philo->i == 0)
-		left_fork = &philo->forks[philo->num_philo - 1];
+	if (philo->id == 0)
+		left_fork = &philo->data->forks[philo->data->num_philo - 1];
 	else
-		left_fork = &philo->forks[philo->i - 1];
-	right_fork = &philo->forks[philo->i];
+		left_fork = &philo->data->forks[philo->id - 1];
+	right_fork = &philo->data->forks[philo->id];
 	pthread_mutex_lock(left_fork);
 	pthread_mutex_lock(right_fork);
 	gettimeofday(&time, NULL);
@@ -36,20 +36,20 @@ void	eating_act(t_philo *philo)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	if (philo->is_dead)
+	if (philo->data->is_dead)
 		return ;
-	if (get_time(time) - philo->die_count[philo->i] > philo->tm_to_die)
+	if (get_time(time) - philo->die_count > philo->data->tm_to_die)
 	{
-		printf(DIE_MSG, get_time(time) - philo->start, philo->i + 1);
+		printf(DIE_MSG, get_time(time) - philo->data->start, philo->id + 1);
 		return ;
 	}
-	philo->die_count[philo->i] = get_time(time);
+	philo->die_count = get_time(time);
 	philo->total_eated++;
 	printf("%ld ms %d has taken a fork\n",
-			get_time(time) - philo->start, philo->i + 1);
+			get_time(time) - philo->data->start, philo->id + 1);
 	printf("%ld ms %d is eating\n",
-				get_time(time) - philo->start, philo->i + 1);
-	usleep(philo->tm_to_eat);
+				get_time(time) - philo->data->start, philo->id + 1);
+	usleep(philo->data->tm_to_eat);
 }
 
 void	sleeping_act(t_philo philo)
@@ -58,8 +58,8 @@ void	sleeping_act(t_philo philo)
 
 	gettimeofday(&time, NULL);
 	printf("%ld ms %d is sleeping\n",
-			get_time(time) - philo.start, philo.i + 1);
-	usleep(philo.tm_to_sleep);
+			get_time(time) - philo.data->start, philo.id + 1);
+	usleep(philo.data->tm_to_sleep);
 }
 
 void	thinking_act(t_philo philo)
@@ -68,5 +68,5 @@ void	thinking_act(t_philo philo)
 
 	gettimeofday(&time, NULL);
 	printf("%ld ms %d is thinking\n",
-			get_time(time) - philo.start, philo.i + 1);
+			get_time(time) - philo.data->start, philo.id + 1);
 }
