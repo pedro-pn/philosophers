@@ -1,0 +1,5 @@
+*.o
+teste*
+philo
+*.txt
+*.out
