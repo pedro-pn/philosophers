@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 16:10:33 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:21:09 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	get_fork(t_philo *philo)
 	pthread_mutex_lock(left_fork);
 	pthread_mutex_lock(right_fork);
 	gettimeofday(&time, NULL);
-	printf("%ld ms %d has taken a fork\n",
-			get_time(time) - philo->start, philo->i + 1);
 	eating_act(philo);
 	pthread_mutex_unlock(left_fork);
 	pthread_mutex_unlock(right_fork);
@@ -47,6 +45,8 @@ void	eating_act(t_philo *philo)
 	}
 	philo->die_count[philo->i] = get_time(time);
 	philo->total_eated++;
+	printf("%ld ms %d has taken a fork\n",
+			get_time(time) - philo->start, philo->i + 1);
 	printf("%ld ms %d is eating\n",
 				get_time(time) - philo->start, philo->i + 1);
 	usleep(philo->tm_to_eat);

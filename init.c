@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 16:10:00 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:25:40 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	check_args(t_philo *philo, int argc, char **argv)
 		count++;
 	}
 	philo->is_dead = 0;
-	philo->tm_to_die = ft_atoi(argv[2]);
-	philo->tm_to_eat = ft_atoi(argv[3]);
-	philo->tm_to_sleep = ft_atoi(argv[4]);
+	philo->tm_to_die = ft_atoi(argv[2]) * 1000;
+	philo->tm_to_eat = ft_atoi(argv[3]) * 1000;
+	philo->tm_to_sleep = ft_atoi(argv[4]) * 1000;
 	philo->total_eated = malloc(sizeof(int) * philo->num_philo);
 	memset(philo->total_eated, 0, philo->num_philo);
 	create_mutex(philo);
