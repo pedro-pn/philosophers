@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/20 12:48:51 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/20 19:56:25 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,6 @@ void	start_threads(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		// if (*status != 0)
-		// 	data->is_dead = 1;
 		pthread_join(data->philos[i], (void **)&status);
 		free(status);
 		i++;
@@ -122,45 +120,19 @@ void	*philosopher(void *arg)
 		usleep(50);
 	while (get_time(time) - philo->die_count < philo->data->tm_to_die)
 	{
-		pthread_mutex_lock(&philo->data->die_mutex);
-		if (philo->data->is_dead)
-		{
-			pthread_mutex_unlock(&philo->data->die_mutex);
+		if (dead_checker(philo->data))
 			break ;
-		}
-		pthread_mutex_unlock(&philo->data->die_mutex);
 		gettimeofday(&time, NULL);
-		thinking_act(*philo);
 		get_fork(philo);
 		gettimeofday(&time, NULL);
-		pthread_mutex_lock(&philo->data->die_mutex);
-		if (philo->data->is_dead)
-		{
-			pthread_mutex_unlock(&philo->data->die_mutex);
+		if (dead_checker(philo->data))
 			break ;
-		}
-		pthread_mutex_unlock(&philo->data->die_mutex);
-		pthread_mutex_lock(&philo->data->die_mutex);
-		if (get_time(time) - philo->die_count < philo->data->tm_to_die)
-		{
-			pthread_mutex_unlock(&philo->data->die_mutex);
-			sleeping_act(*philo);
-		}
-		else
-			pthread_mutex_unlock(&philo->data->die_mutex);
 		if (philo->total_eated == philo->data->total_eat
 				&& philo->data->total_eat != 0)
 			break ;
+		if (get_time(time) - philo->die_count < philo->data->tm_to_die)
+			sleeping_act(*philo);
+		thinking_act(*philo);
 	}
-	// if (get_time(time) - philo->die_count > philo->data->tm_to_die)
-	// {
-	// 	*status = 2;
-	// 	return ((void *)status);
-	// }
-	// else if (philo->data->is_dead)
-	// {
-	// 	*status = 3;
-	// 	return ((void *)status);
-	// }
 	return ((void *)status);
 }

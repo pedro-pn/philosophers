@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/20 12:19:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:28:11 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	thinking_act(t_philo philo);
 
 /* utils.c */
 
-int	ft_atoi(const char *nptr);
+int			ft_atoi(const char *nptr);
 long int	get_time(struct timeval time);
+int			dead_checker(t_data *data);
 
 #endif

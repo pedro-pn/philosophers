@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:59:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 15:34:05 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:23:17 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,16 @@ int	ft_atoi(const char *nptr)
 long int	get_time(struct timeval time)
 {
 	return((time.tv_sec * 1000000) + time.tv_usec);
+}
+
+int	dead_checker(t_data *data)
+{
+	pthread_mutex_lock(&data->die_mutex);
+	if (data->is_dead)
+	{
+		pthread_mutex_unlock(&data->die_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->die_mutex);
+	return (0);
 }
