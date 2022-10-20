@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 19:08:02 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:19:17 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_data
 	long int			start;
 	pthread_t			*philos;
 	pthread_mutex_t		*forks;
+	pthread_mutex_t		die_mutex;
+	pthread_mutex_t		print_lock;
 }			t_data;
 
 typedef struct s_philo
@@ -42,6 +44,7 @@ typedef struct s_philo
 	int			total_eated;
 	int			id;
 	long int	die_count;
+	long int	start;
 	t_data		*data;
 }				t_philo;
 

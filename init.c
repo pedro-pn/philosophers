@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/19 19:22:08 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:48:51 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	create_mutex(t_data *data)
 	int	count;
 
 	count = 0;
+	pthread_mutex_init(&data->die_mutex, NULL);
+	pthread_mutex_init(&data->print_lock, NULL);
 	while (count < data->num_philo)
 	{
 		pthread_mutex_init(&data->forks[count], NULL);
@@ -74,6 +76,7 @@ t_philo	**create_philo(t_data *data)
 		philos[index]->id = index;
 		philos[index]->die_count = data->start;
 		philos[index]->data = data;
+		philos[index]->start = data->start;
 		index++;
 	}
 	return (philos);
@@ -97,8 +100,8 @@ void	start_threads(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		if (*status != 0)
-			data->is_dead = 1;
+		// if (*status != 0)
+		// 	data->is_dead = 1;
 		pthread_join(data->philos[i], (void **)&status);
 		free(status);
 		i++;
@@ -115,29 +118,49 @@ void	*philosopher(void *arg)
 	*status = 0;
 	philo = (t_philo *)arg;
 	gettimeofday(&time, NULL);
-	while (!philo->data->is_dead && get_time(time) - philo->die_count < philo->data->tm_to_die)
+	if (philo->id % 2)
+		usleep(50);
+	while (get_time(time) - philo->die_count < philo->data->tm_to_die)
 	{
+		pthread_mutex_lock(&philo->data->die_mutex);
+		if (philo->data->is_dead)
+		{
+			pthread_mutex_unlock(&philo->data->die_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->die_mutex);
 		gettimeofday(&time, NULL);
 		thinking_act(*philo);
 		get_fork(philo);
 		gettimeofday(&time, NULL);
+		pthread_mutex_lock(&philo->data->die_mutex);
 		if (philo->data->is_dead)
+		{
+			pthread_mutex_unlock(&philo->data->die_mutex);
 			break ;
+		}
+		pthread_mutex_unlock(&philo->data->die_mutex);
+		pthread_mutex_lock(&philo->data->die_mutex);
 		if (get_time(time) - philo->die_count < philo->data->tm_to_die)
+		{
+			pthread_mutex_unlock(&philo->data->die_mutex);
 			sleeping_act(*philo);
+		}
+		else
+			pthread_mutex_unlock(&philo->data->die_mutex);
 		if (philo->total_eated == philo->data->total_eat
 				&& philo->data->total_eat != 0)
 			break ;
 	}
-	if (get_time(time) - philo->die_count > philo->data->tm_to_die)
-	{
-		*status = 2;
-		return ((void *)status);
-	}
-	else if (philo->data->is_dead)
-	{
-		*status = 3;
-		return ((void *)status);
-	}
+	// if (get_time(time) - philo->die_count > philo->data->tm_to_die)
+	// {
+	// 	*status = 2;
+	// 	return ((void *)status);
+	// }
+	// else if (philo->data->is_dead)
+	// {
+	// 	*status = 3;
+	// 	return ((void *)status);
+	// }
 	return ((void *)status);
 }
