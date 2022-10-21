@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/20 17:34:32 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/21 10:54:38 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	eating_act(t_philo *philo)
 {
 	struct timeval	time;
 
-	gettimeofday(&time, NULL);
 	if (dead_checker(philo->data))
 			return ;
+	gettimeofday(&time, NULL);
 	if (get_time(time) - philo->die_count > philo->data->tm_to_die)
 	{
 		pthread_mutex_lock(&philo->data->print_lock);
@@ -91,6 +91,11 @@ void	sleeping_act(t_philo philo)
 		return ;
 	pthread_mutex_lock(&philo.data->print_lock);
 	gettimeofday(&time, NULL);
+	if (get_time(time) - philo.die_count < philo.data->tm_to_die)
+	{
+		pthread_mutex_unlock(&philo.data->print_lock);
+		return ;
+	}
 	if (!dead_checker(philo.data))
 		printf("%ld %d is sleeping\n",
 				(get_time(time) - philo.start) / 1000, philo.id + 1);
@@ -106,6 +111,11 @@ void	thinking_act(t_philo philo)
 		return ;
 	pthread_mutex_lock(&philo.data->print_lock);
 	gettimeofday(&time, NULL);
+	if (get_time(time) - philo.die_count < philo.data->tm_to_die)
+	{
+		pthread_mutex_unlock(&philo.data->print_lock);
+		return ;
+	}
 	if (!dead_checker(philo.data))
 		printf("%ld %d is thinking\n",
 				(get_time(time) - philo.start) / 1000, philo.id + 1);

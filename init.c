@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/20 19:56:25 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/21 10:53:03 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,16 +122,13 @@ void	*philosopher(void *arg)
 	{
 		if (dead_checker(philo->data))
 			break ;
-		gettimeofday(&time, NULL);
 		get_fork(philo);
-		gettimeofday(&time, NULL);
 		if (dead_checker(philo->data))
 			break ;
 		if (philo->total_eated == philo->data->total_eat
 				&& philo->data->total_eat != 0)
 			break ;
-		if (get_time(time) - philo->die_count < philo->data->tm_to_die)
-			sleeping_act(*philo);
+		sleeping_act(*philo);
 		thinking_act(*philo);
 	}
 	return ((void *)status);
