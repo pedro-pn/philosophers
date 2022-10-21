@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/21 10:54:38 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:11:59 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void	eating_act(t_philo *philo)
 	if (get_time(time) - philo->die_count > philo->data->tm_to_die)
 	{
 		pthread_mutex_lock(&philo->data->print_lock);
-		gettimeofday(&time, NULL);
-		if (!dead_checker(philo->data))
-			printf(DIE_MSG, (get_time(time) - philo->start) / 1000, philo->id + 1);
+		printf(DIE_MSG, (get_time(time) - philo->start) / 1000, philo->id + 1);
 		pthread_mutex_unlock(&philo->data->print_lock);
 		pthread_mutex_lock(&philo->data->die_mutex);
 		philo->data->is_dead = 1;
@@ -52,8 +50,8 @@ void	eating_act(t_philo *philo)
 	}
 	if (dead_checker(philo->data))
 		return ;
-	pthread_mutex_lock(&philo->data->print_lock);
 	gettimeofday(&time, NULL);
+	pthread_mutex_lock(&philo->data->print_lock);
 	if (!dead_checker(philo->data))
 	{
 		printf("%ld %d has taken a fork\n",
@@ -65,18 +63,18 @@ void	eating_act(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->data->print_lock);
 	usleep(philo->data->tm_to_eat);
+	gettimeofday(&time, NULL);
 	if (dead_checker(philo->data))
 		return ;
 	if (get_time(time) - philo->die_count > philo->data->tm_to_die)
 	{
-		pthread_mutex_lock(&philo->data->die_mutex);
-		philo->data->is_dead = 1;
-		pthread_mutex_unlock(&philo->data->die_mutex);
 		pthread_mutex_lock(&philo->data->print_lock);
-		gettimeofday(&time, NULL);
 		if (!dead_checker(philo->data))
 			printf(DIE_MSG, (get_time(time) - philo->start) / 1000, philo->id + 1);
 		pthread_mutex_unlock(&philo->data->print_lock);
+		pthread_mutex_lock(&philo->data->die_mutex);
+		philo->data->is_dead = 1;
+		pthread_mutex_unlock(&philo->data->die_mutex);
 		return ;
 	}
 	philo->die_count = get_time(time);
