@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 10:38:30 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:51:07 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,23 @@ void	*monitor(void *arg);
 
 void	get_fork(t_philo *philo);
 void	eating_act(t_philo *philo);
-void	sleeping_act(t_philo philo);
-void	thinking_act(t_philo philo);
+void	sleeping_act(t_philo *philo);
+void	thinking_act(t_philo *philo);
+
+/* actions_utils.c */
+
+void	print_eating(t_philo *philo, struct timeval time);
+void	print_sleeping(t_philo *philo, struct timeval time);
+void	print_thinking(t_philo *philo, struct timeval time);
+void	death_checker(t_philo *philo, struct timeval time);
 
 /* utils.c */
 
 int			ft_atoi(const char *nptr);
 long int	get_time(struct timeval time);
 int			dead_checker(t_data *data);
+int			end_checker(t_data *data);
+
+
 
 #endif

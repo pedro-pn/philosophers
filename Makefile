@@ -1,4 +1,4 @@
-SOURCES = philosophers.c init.c actions.c utils.c
+SOURCES = main.c philo.c init.c actions.c actions_utils.c utils.c
 NAME = philo
 OBJS = ${SOURCES:.c=.o}
 FLAGS = -g

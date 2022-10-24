@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:59:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/20 15:23:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/24 13:31:15 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,15 @@ int	dead_checker(t_data *data)
 	}
 	pthread_mutex_unlock(&data->die_mutex);
 	return (0);
+}
+
+int	end_checker(t_data *data)
+{
+	pthread_mutex_lock(&data->end_lock);
+	if (data->end)
+	{
+		pthread_mutex_unlock(&data->end_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->end_lock);
 }
