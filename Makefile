@@ -1,7 +1,7 @@
 SOURCES = philosophers.c init.c actions.c utils.c
 NAME = philo
 OBJS = ${SOURCES:.c=.o}
-FLAGS = -g3
+FLAGS = -g
 CC = gcc
 
 all:  ${NAME}
