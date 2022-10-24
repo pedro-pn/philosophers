@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:13:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 17:14:41 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/24 19:01:56 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,8 @@ void	*monitor(void *arg)
 	while (1)
 	{
 		gettimeofday(&times, NULL);
-		pthread_mutex_lock(&data->end_lock);
-		if (data->end)
-		{
-			pthread_mutex_unlock(&data->end_lock);
+		if (end_checker(data))
 			break ;
-		}
-		pthread_mutex_unlock(&data->end_lock);
 		pthread_mutex_lock(&data->die_mutex);
 		if (data->is_dead)
 		{
@@ -47,11 +42,8 @@ void	*monitor(void *arg)
 void	*philosopher(void *arg)
 {
 	t_philo			*philo;
-	int				*status;
 	struct timeval	time;
 	
-	status = malloc(sizeof(*status));
-	*status = 0;
 	philo = (t_philo *)arg;
 	gettimeofday(&time, NULL);
 	if (philo->id % 2)
@@ -66,8 +58,8 @@ void	*philosopher(void *arg)
 		if (philo->total_eated == philo->data->total_eat
 				&& philo->data->total_eat != 0)
 			break ;
-		sleeping_act(*philo);
-		thinking_act(*philo);
+		sleeping_act(philo);
+		thinking_act(philo);
+		gettimeofday(&time, NULL);
 	}
-	return ((void *)status);
 }

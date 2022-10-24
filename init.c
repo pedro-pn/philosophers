@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 17:14:39 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/24 18:52:05 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,38 @@ void	create_mutex(t_data *data)
 	}
 }
 
-t_philo	**create_philo(t_data *data)
+t_philo	**alloc_philo(t_data *data)
 {
 	t_philo	**philos;
 	int		index;
 
 	index = 0;
 	philos = malloc(sizeof(*philos) * (data->num_philo + 1));
+	if (!philos)
+		return (NULL);
 	philos[data->num_philo] = NULL;
 	while (index < data->num_philo)
 	{
 		philos[index] = malloc(sizeof(**philos));
+		if (!philos[index])
+		{
+			clean_array((void **)philos);
+			return (NULL);
+		}
 		index++;
 	}
+	return (philos);
+}
+
+t_philo	**create_philo(t_data *data)
+{
+	t_philo	**philos;
+	int		index;
+
 	index = 0;
+	philos = alloc_philo(data);
+	if (!philos)
+		return (NULL);
 	while (philos[index])
 	{
 		philos[index]->total_eated = 0;
@@ -84,38 +102,3 @@ t_philo	**create_philo(t_data *data)
 	}
 	return (philos);
 }
-
-
-
-void	start_threads(t_data *data)
-{
-	int		i;
-	int		*status;
-	pthread_t	moni;
-	t_philo	**philosophers;
-
-	i = 0;
-	philosophers = create_philo(data);
-	status = malloc(sizeof(int));
-	*status = 0;
-	while (philosophers[i])
-	{
-		pthread_create(&data->philos[i], NULL, &philosopher, (void *)philosophers[i]);
-		i++;
-	}
-	pthread_create(&moni, NULL, &monitor, (void *)data);
-	//pthread_detach(moni);
-	i = 0;
-	while (i < data->num_philo)
-	{
-		pthread_join(data->philos[i], (void **)&status);
-		free(status);
-		i++;
-	}
-	pthread_mutex_lock(&data->end_lock);
-	data->end = 1;
-	pthread_mutex_unlock(&data->end_lock);
-	pthread_join(moni, NULL);
-}
-
-
