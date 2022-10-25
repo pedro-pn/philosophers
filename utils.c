@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:59:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 18:52:00 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:04:55 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,20 @@ void	clean_array(void **array)
 	array = NULL;
 }
 
-int	dead_checker(t_data *data)
+void	clean_program(t_data *data)
 {
-	pthread_mutex_lock(&data->die_mutex);
-	if (data->is_dead)
-	{
-		pthread_mutex_unlock(&data->die_mutex);
-		return (1);
-	}
-	pthread_mutex_unlock(&data->die_mutex);
-	return (0);
-}
+	int	i;
 
-int	end_checker(t_data *data)
-{
-	pthread_mutex_lock(&data->end_lock);
-	if (data->end)
+	i = 0;
+	free(data->philos);
+	while (i < data->num_philo)
 	{
-		pthread_mutex_unlock(&data->end_lock);
-		return (1);
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
 	}
-	pthread_mutex_unlock(&data->end_lock);
+	free(data->forks);
+	pthread_mutex_destroy(&data->die_mutex);
+	pthread_mutex_destroy(&data->print_lock);
+	pthread_mutex_destroy(&data->end_lock);
+	free(data);	
 }

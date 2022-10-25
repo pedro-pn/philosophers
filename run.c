@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:25 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 18:52:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:03:35 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	start_threads(t_data *data)
 	data->end = 1;
 	pthread_mutex_unlock(&data->end_lock);
 	pthread_join(moni, NULL);
+	clean_array((void **)philosophers);
 	return (0);
 }
 
@@ -53,4 +54,27 @@ void	join_philos(t_data *data)
 		pthread_join(data->philos[id], NULL);
 		id++;
 	}
+}
+
+int	dead_checker(t_data *data)
+{
+	pthread_mutex_lock(&data->die_mutex);
+	if (data->is_dead)
+	{
+		pthread_mutex_unlock(&data->die_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->die_mutex);
+	return (0);
+}
+
+int	end_checker(t_data *data)
+{
+	pthread_mutex_lock(&data->end_lock);
+	if (data->end)
+	{
+		pthread_mutex_unlock(&data->end_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->end_lock);
 }

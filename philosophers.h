@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 18:51:47 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 10:04:30 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <string.h>
 
 # define ARGERR 1
-
 # define DIE_MSG "%ld ms %d died\n"
 
 typedef struct s_data
@@ -50,46 +49,46 @@ typedef struct s_philo
 	t_data		*data;
 }				t_philo;
 
-
 /* init.c */
 
-int		check_args(int argc, char **argv);
-t_data	*create_data(int argc, char **argv);
-void	create_mutex(t_data *data);
-t_philo	**create_philo(t_data *data);
-t_philo	**alloc_philo(t_data *data);
+int			check_args(int argc, char **argv);
+t_data		*create_data(int argc, char **argv);
+void		create_mutex(t_data *data);
+t_philo		**create_philo(t_data *data);
+t_philo		**alloc_philo(t_data *data);
 
 /* philo.c */
 
-void	*philosopher(void *arg);
-void	*monitor(void *arg);
+void		*philosopher(void *arg);
+void		*monitor(void *arg);
 
 /* run.c */
 
-int		start_threads(t_data *data);
-void	start_philos(t_data *data, t_philo **philosophers);
-void	join_philos(t_data *data);
+int			start_threads(t_data *data);
+void		start_philos(t_data *data, t_philo **philosophers);
+void		join_philos(t_data *data);
+int			dead_checker(t_data *data);
+int			end_checker(t_data *data);
 
 /* actions.c */
 
-void	get_fork(t_philo *philo);
-void	eating_act(t_philo *philo);
-void	sleeping_act(t_philo *philo);
-void	thinking_act(t_philo *philo);
+void		get_fork(t_philo *philo);
+void		eating_act(t_philo *philo);
+void		sleeping_act(t_philo *philo);
+void		thinking_act(t_philo *philo);
 
 /* actions_utils.c */
 
-void	print_eating(t_philo *philo, struct timeval time);
-void	print_sleeping(t_philo *philo, struct timeval time);
-void	print_thinking(t_philo *philo, struct timeval time);
-void	death_checker(t_philo *philo, struct timeval time);
+void		print_eating(t_philo *philo, struct timeval time);
+void		print_sleeping(t_philo *philo, struct timeval time);
+void		print_thinking(t_philo *philo, struct timeval time);
+void		death_checker(t_philo *philo, struct timeval time);
 
 /* utils.c */
 
 int			ft_atoi(const char *nptr);
 void		clean_array(void **array);
 long int	get_time(struct timeval time);
-int			dead_checker(t_data *data);
-int			end_checker(t_data *data);
+void		clean_program(t_data *data);
 
 #endif
