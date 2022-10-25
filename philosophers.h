@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 12:52:09 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 13:28:40 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void		get_fork(t_philo *philo);
 void		eating_act(t_philo *philo);
 void		sleeping_act(t_philo *philo);
 void		thinking_act(t_philo *philo);
+void	one_philo(t_philo *philo);
 
 /* actions_utils.c */
 
