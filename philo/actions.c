@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 13:34:51 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:37:16 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	eating_act(t_philo *philo)
 	struct timeval	time;
 
 	if (dead_checker(philo->data))
-			return ;
+		return ;
 	gettimeofday(&time, NULL);
 	death_checker(philo, time);
 	if (dead_checker(philo->data))
 		return ;
-	gettimeofday(&time, NULL); // talvez n precise
+	gettimeofday(&time, NULL);
 	print_eating(philo, time);
 	usleep(philo->data->tm_to_eat);
 	gettimeofday(&time, NULL);
@@ -82,7 +82,7 @@ void	one_philo(t_philo *philo)
 
 	gettimeofday(&time, NULL);
 	printf("%ld %d has taken a fork\n",
-			(get_time(time) - philo->data->start) / 1000, philo->id);
+		(get_time(time) - philo->data->start) / 1000, philo->id);
 	usleep(philo->data->tm_to_die);
 	pthread_mutex_lock(&philo->data->die_mutex);
 	philo->data->is_dead = philo->id + 1;

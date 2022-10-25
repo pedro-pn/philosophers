@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:13:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 12:51:47 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:34:35 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*monitor(void *arg)
 {
-	t_data 			*data;
+	t_data			*data;
 	struct timeval	times;
 	int				id;
 
@@ -44,7 +44,7 @@ void	*philosopher(void *arg)
 {
 	t_philo			*philo;
 	struct timeval	time;
-	
+
 	philo = (t_philo *)arg;
 	gettimeofday(&time, NULL);
 	if (philo->id % 2)
@@ -57,7 +57,7 @@ void	*philosopher(void *arg)
 		if (dead_checker(philo->data))
 			break ;
 		if (philo->total_eated == philo->data->total_eat
-				&& philo->data->total_eat != 0)
+			&& philo->data->total_eat != 0)
 			break ;
 		sleeping_act(philo);
 		thinking_act(philo);

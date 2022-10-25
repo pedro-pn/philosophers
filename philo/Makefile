@@ -20,4 +20,7 @@ fclean: clean
 
 re: fclean all
 
+norma:
+		norminette ${SOURCES}
+
 .PHONY: all clean fclean re

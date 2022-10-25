@@ -1,7 +1,6 @@
 *.o
 teste*
-philo
 *.txt
 *.out
 *.sh
-
+test*

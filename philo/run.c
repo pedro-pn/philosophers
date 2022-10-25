@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:25 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 13:46:14 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:34:54 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	start_philos(t_data *data, t_philo **philosophers)
 	while (philosophers[id])
 	{
 		pthread_create(&data->philos[id], NULL, &philosopher,
-				(void *)philosophers[id]);
+			(void *)philosophers[id]);
 		id++;
 	}
 }

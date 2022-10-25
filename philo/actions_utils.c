@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:09:47 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 13:41:35 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 14:38:02 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	print_eating(t_philo *philo, struct timeval time)
 	if (!dead_checker(philo->data))
 	{
 		printf("%ld %d has taken a fork\n",
-				(get_time(time) - philo->start) / 1000, philo->id + 1);
+			(get_time(time) - philo->start) / 1000, philo->id + 1);
 		printf("%ld %d has taken a fork\n",
-				(get_time(time) - philo->start) / 1000, philo->id + 1);
+			(get_time(time) - philo->start) / 1000, philo->id + 1);
 		printf("%ld %d is eating\n",
-					(get_time(time) - philo->start) / 1000, philo->id + 1);
+			(get_time(time) - philo->start) / 1000, philo->id + 1);
 	}
 	pthread_mutex_unlock(&philo->data->print_lock);
 }
@@ -33,7 +33,7 @@ void	print_sleeping(t_philo *philo, struct timeval time)
 	death_checker(philo, time);
 	if (!dead_checker(philo->data))
 		printf("%ld %d is sleeping\n",
-				(get_time(time) - philo->start) / 1000, philo->id + 1);
+			(get_time(time) - philo->start) / 1000, philo->id + 1);
 	pthread_mutex_unlock(&philo->data->print_lock);
 }
 
@@ -43,7 +43,7 @@ void	print_thinking(t_philo *philo, struct timeval time)
 	death_checker(philo, time);
 	if (!dead_checker(philo->data))
 		printf("%ld %d is thinking\n",
-				(get_time(time) - philo->start) / 1000, philo->id + 1);
+			(get_time(time) - philo->start) / 1000, philo->id + 1);
 	pthread_mutex_unlock(&philo->data->print_lock);
 }
 
