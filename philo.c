@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:13:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 19:01:56 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:51:47 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	*monitor(void *arg)
 		else
 			pthread_mutex_unlock(&data->die_mutex);
 	}
+	return (NULL);
 }
 
 void	*philosopher(void *arg)
@@ -62,4 +63,5 @@ void	*philosopher(void *arg)
 		thinking_act(philo);
 		gettimeofday(&time, NULL);
 	}
+	return (NULL);
 }

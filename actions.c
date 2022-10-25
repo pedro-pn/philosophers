@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 10:14:59 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:53:56 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	get_fork(t_philo *philo)
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	struct timeval	time;
 
 	if (philo->id == 0)
 		left_fork = &philo->data->forks[philo->data->num_philo - 1];

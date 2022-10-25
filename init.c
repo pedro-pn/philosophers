@@ -6,13 +6,13 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/24 18:52:05 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:52:01 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_args(int argc, char **argv)
+int	check_args(int argc)
 {
 	if (argc >= 5)
 		return (0);

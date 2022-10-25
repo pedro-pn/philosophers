@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:25 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 10:03:35 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:53:31 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	start_threads(t_data *data)
 	t_philo		**philosophers;
 
 	philosophers = create_philo(data);
-	if (!philosopher)
+	if (!philosophers)
 		return (1);
 	start_philos(data, philosophers);
 	pthread_create(&moni, NULL, &monitor, (void *)data);
@@ -77,4 +77,5 @@ int	end_checker(t_data *data)
 		return (1);
 	}
 	pthread_mutex_unlock(&data->end_lock);
+	return (0);
 }

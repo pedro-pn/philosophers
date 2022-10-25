@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 10:04:30 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:52:09 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 
 /* init.c */
 
-int			check_args(int argc, char **argv);
+int			check_args(int argc);
 t_data		*create_data(int argc, char **argv);
 void		create_mutex(t_data *data);
 t_philo		**create_philo(t_data *data);
