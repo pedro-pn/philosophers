@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 14:37:16 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:41:21 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,42 +38,25 @@ void	eating_act(t_philo *philo)
 {
 	struct timeval	time;
 
-	if (dead_checker(philo->data))
-		return ;
 	gettimeofday(&time, NULL);
-	death_checker(philo, time);
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_eating(philo, time);
+	print_eating(philo);
 	usleep(philo->data->tm_to_eat);
 	gettimeofday(&time, NULL);
-	if (dead_checker(philo->data))
-		return ;
-	death_checker(philo, time);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->die_count = get_time(time);
+	pthread_mutex_unlock(&philo->meal_mutex);
 	philo->total_eated++;
 }
 
 void	sleeping_act(t_philo *philo)
 {
-	struct timeval	time;
-
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_sleeping(philo, time);
+	print_sleeping(philo);
 	usleep(philo->data->tm_to_sleep);
 }
 
 void	thinking_act(t_philo *philo)
 {
-	struct timeval	time;
-
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_thinking(philo, time);
+	print_thinking(philo);
 }
 
 void	one_philo(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 12:52:01 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:37:36 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_philo	**create_philo(t_data *data)
 		philos[index]->die_count = data->start;
 		philos[index]->data = data;
 		philos[index]->start = data->start;
+		pthread_mutex_init(&philos[index]->meal_mutex, NULL);
 		index++;
 	}
 	return (philos);

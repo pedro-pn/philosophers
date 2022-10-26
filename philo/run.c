@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:36:25 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 14:34:54 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/26 11:40:27 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 int	start_threads(t_data *data)
 {
-	pthread_t	moni;
+	pthread_t	monitor_thread;
 	t_philo		**philosophers;
+	t_moni		*moni;
 
 	philosophers = create_philo(data);
 	if (!philosophers)
 		return (1);
 	start_philos(data, philosophers);
-	pthread_create(&moni, NULL, &monitor, (void *)data);
+	moni = malloc(sizeof(t_moni));
+	moni->data = data;
+	moni->philos = philosophers;
+	pthread_create(&monitor_thread, NULL, &monitor, (void *)moni);
 	join_philos(data);
 	pthread_mutex_lock(&data->end_lock);
 	data->end = 1;
 	pthread_mutex_unlock(&data->end_lock);
-	pthread_join(moni, NULL);
+	pthread_join(monitor_thread, NULL);
 	clean_array((void **)philosophers);
 	return (0);
 }

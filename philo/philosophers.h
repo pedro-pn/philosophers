@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 13:28:40 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/26 12:15:18 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,19 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int			total_eated;
-	int			id;
-	long int	die_count;
-	long int	start;
-	t_data		*data;
+	int					total_eated;
+	int					id;
+	long int			die_count;
+	long int			start;
+	t_data				*data;
+	pthread_mutex_t		meal_mutex;
 }				t_philo;
+
+typedef struct s_moni
+{
+	t_philo	**philos;
+	t_data	*data;
+}			t_moni;
 
 /* init.c */
 
@@ -80,9 +87,9 @@ void	one_philo(t_philo *philo);
 
 /* actions_utils.c */
 
-void		print_eating(t_philo *philo, struct timeval time);
-void		print_sleeping(t_philo *philo, struct timeval time);
-void		print_thinking(t_philo *philo, struct timeval time);
+void		print_eating(t_philo *philo);
+void		print_sleeping(t_philo *philo);
+void		print_thinking(t_philo *philo);
 void		death_checker(t_philo *philo, struct timeval time);
 
 /* utils.c */
@@ -92,4 +99,7 @@ void		clean_array(void **array);
 long int	get_time(struct timeval time);
 void		clean_program(t_data *data);
 
+
+int	check_last_meal(t_moni *moni, int id);
+long int	get_lastmeal(t_philo *philo);
 #endif
