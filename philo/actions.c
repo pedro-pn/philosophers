@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/26 12:41:21 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/27 10:30:41 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	get_fork(t_philo *philo)
 	right_fork = &philo->data->forks[philo->id];
 	pthread_mutex_lock(left_fork);
 	pthread_mutex_lock(right_fork);
+	if (dead_checker(philo->data))
+	{
+		pthread_mutex_unlock(left_fork);
+		pthread_mutex_unlock(right_fork);
+		return ;
+	}
 	eating_act(philo);
 	pthread_mutex_unlock(left_fork);
 	pthread_mutex_unlock(right_fork);
@@ -39,12 +45,11 @@ void	eating_act(t_philo *philo)
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	print_eating(philo);
-	usleep(philo->data->tm_to_eat);
-	gettimeofday(&time, NULL);
 	pthread_mutex_lock(&philo->meal_mutex);
 	philo->die_count = get_time(time);
 	pthread_mutex_unlock(&philo->meal_mutex);
+	print_eating(philo);
+	usleep(philo->data->tm_to_eat);
 	philo->total_eated++;
 }
 
@@ -57,6 +62,7 @@ void	sleeping_act(t_philo *philo)
 void	thinking_act(t_philo *philo)
 {
 	print_thinking(philo);
+	usleep(500);
 }
 
 void	one_philo(t_philo *philo)
