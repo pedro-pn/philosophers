@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:59:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/27 10:39:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/27 10:42:16 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,16 @@ void	clean_program(t_data *data)
 	pthread_mutex_destroy(&data->print_lock);
 	pthread_mutex_destroy(&data->end_lock);
 	free(data);
+}
+
+void	delete_meal_mutex(t_philo **philos)
+{
+	int	i;
+
+	i = 0;
+	while (philos[i])
+	{
+		pthread_mutex_destroy(&philos[i]->meal_mutex);
+		i++;
+	}
 }
