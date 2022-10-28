@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/27 10:34:22 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:55:06 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ t_data	*create_data(int argc, char **argv)
 	data->philos = malloc(sizeof(pthread_t) * (data->num_philo));
 	data->is_dead = 0;
 	data->end = 0;
-	data->tm_to_die = ft_atoi(argv[2]) * 1000;
-	data->tm_to_eat = ft_atoi(argv[3]) * 1000;
-	data->tm_to_sleep = ft_atoi(argv[4]) * 1000;
+	data->tm_to_die = ft_atoi(argv[2]);
+	data->tm_to_eat = ft_atoi(argv[3]);
+	data->tm_to_sleep = ft_atoi(argv[4]);
 	create_mutex(data);
 	if (argc == 6)
 		data->total_eat = ft_atoi(argv[5]);

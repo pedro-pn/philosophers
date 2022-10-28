@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/27 10:30:41 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/28 13:52:50 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,19 @@ void	eating_act(t_philo *philo)
 	philo->die_count = get_time(time);
 	pthread_mutex_unlock(&philo->meal_mutex);
 	print_eating(philo);
-	usleep(philo->data->tm_to_eat);
+	usleep(philo->data->tm_to_eat * 1000);
 	philo->total_eated++;
 }
 
 void	sleeping_act(t_philo *philo)
 {
 	print_sleeping(philo);
-	usleep(philo->data->tm_to_sleep);
+	usleep(philo->data->tm_to_sleep * 1000);
 }
 
 void	thinking_act(t_philo *philo)
 {
 	print_thinking(philo);
-	usleep(500);
 }
 
 void	one_philo(t_philo *philo)
@@ -71,8 +70,8 @@ void	one_philo(t_philo *philo)
 
 	gettimeofday(&time, NULL);
 	printf("%ld %d has taken a fork\n",
-		(get_time(time) - philo->data->start) / 1000, philo->id);
-	usleep(philo->data->tm_to_die);
+		get_time(time) - philo->data->start, philo->id);
+	usleep(philo->data->tm_to_die * 1000);
 	pthread_mutex_lock(&philo->data->die_mutex);
 	philo->data->is_dead = philo->id + 1;
 	pthread_mutex_unlock(&philo->data->die_mutex);

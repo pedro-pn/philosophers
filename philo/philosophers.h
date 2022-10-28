@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/27 10:42:12 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:59:45 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ void		print_sleeping(t_philo *philo);
 void		print_thinking(t_philo *philo);
 void		death_checker(t_philo *philo, struct timeval time);
 
+/* monitor_utils.c */
+
+int			check_last_meal(t_moni *moni, int id);
+long int	get_lastmeal(t_philo *philo);
+
 /* utils.c */
 
 int			ft_atoi(const char *nptr);
@@ -100,7 +105,4 @@ long int	get_time(struct timeval time);
 void		clean_program(t_data *data);
 void		delete_meal_mutex(t_philo **philos);
 
-
-int	check_last_meal(t_moni *moni, int id);
-long int	get_lastmeal(t_philo *philo);
 #endif

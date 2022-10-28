@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 18:09:47 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/26 14:12:29 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/28 10:59:54 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_eating(t_philo *philo)
 {
 	struct timeval	time;
-	
+
 	pthread_mutex_lock(&philo->data->print_lock);
 	gettimeofday(&time, NULL);
 	if (!dead_checker(philo->data))
