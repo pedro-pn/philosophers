@@ -6,19 +6,11 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/28 10:55:06 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:04:31 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-int	check_args(int argc)
-{
-	if (argc >= 5)
-		return (0);
-	write(STDERR_FILENO, "Insufficient args. \n", 20);
-	return (ARGERR);
-}
 
 t_data	*create_data(int argc, char **argv)
 {

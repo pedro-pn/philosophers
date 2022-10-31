@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:33:46 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/31 16:07:55 by ppaulo-d         ###   ########.fr       */
+/*   Created: 2022/10/31 16:00:36 by ppaulo-d          #+#    #+#             */
+/*   Updated: 2022/10/31 16:01:24 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-
-int	main(int argc, char *argv[])
+/** This function checks whether c is a digit.
+ * @param c The character to be checked.
+ * @return A postive integer if c is a digit and 0 if not.
+ * */
+int	ft_isdigit(int c)
 {
-	t_data	*data;
-	int		status;
-
-	status = 0;
-	if (check_args(argc, argv))
-		return (ARGERR);
-	data = create_data(argc, argv);
-	status = start_threads(data);
-	clean_program(data);
-	if (status)
-		write(2, "philosophers: something went wrong\n", 35);
-	return (status);
+	if (c >= 48 && c <= 57)
+		return (2048);
+	return (0);
 }

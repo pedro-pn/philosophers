@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/28 10:59:45 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:15:32 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 
 # define ARGERR 1
+# define INVERR 2
 # define DIE_MSG "%ld ms %d died\n"
 
 typedef struct s_data
@@ -56,9 +57,12 @@ typedef struct s_moni
 	t_data	*data;
 }			t_moni;
 
+/* input.c */
+
+int			check_args(int argc, char **argv);
+
 /* init.c */
 
-int			check_args(int argc);
 t_data		*create_data(int argc, char **argv);
 void		create_mutex(t_data *data);
 t_philo		**create_philo(t_data *data);
@@ -104,5 +108,9 @@ void		clean_array(void **array);
 long int	get_time(struct timeval time);
 void		clean_program(t_data *data);
 void		delete_meal_mutex(t_philo **philos);
+
+/* ft_isdigit.c */
+
+int			ft_isdigit(int c);
 
 #endif
