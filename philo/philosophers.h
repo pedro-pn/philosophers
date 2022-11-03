@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 13:28:40 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:15:32 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 
 # define ARGERR 1
+# define INVERR 2
 # define DIE_MSG "%ld ms %d died\n"
 
 typedef struct s_data
@@ -42,16 +43,26 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int			total_eated;
-	int			id;
-	long int	die_count;
-	long int	start;
-	t_data		*data;
+	int					total_eated;
+	int					id;
+	long int			die_count;
+	long int			start;
+	t_data				*data;
+	pthread_mutex_t		meal_mutex;
 }				t_philo;
+
+typedef struct s_moni
+{
+	t_philo	**philos;
+	t_data	*data;
+}			t_moni;
+
+/* input.c */
+
+int			check_args(int argc, char **argv);
 
 /* init.c */
 
-int			check_args(int argc);
 t_data		*create_data(int argc, char **argv);
 void		create_mutex(t_data *data);
 t_philo		**create_philo(t_data *data);
@@ -76,14 +87,19 @@ void		get_fork(t_philo *philo);
 void		eating_act(t_philo *philo);
 void		sleeping_act(t_philo *philo);
 void		thinking_act(t_philo *philo);
-void	one_philo(t_philo *philo);
+void		one_philo(t_philo *philo);
 
 /* actions_utils.c */
 
-void		print_eating(t_philo *philo, struct timeval time);
-void		print_sleeping(t_philo *philo, struct timeval time);
-void		print_thinking(t_philo *philo, struct timeval time);
+void		print_eating(t_philo *philo);
+void		print_sleeping(t_philo *philo);
+void		print_thinking(t_philo *philo);
 void		death_checker(t_philo *philo, struct timeval time);
+
+/* monitor_utils.c */
+
+int			check_last_meal(t_moni *moni, int id);
+long int	get_lastmeal(t_philo *philo);
 
 /* utils.c */
 
@@ -91,5 +107,10 @@ int			ft_atoi(const char *nptr);
 void		clean_array(void **array);
 long int	get_time(struct timeval time);
 void		clean_program(t_data *data);
+void		delete_meal_mutex(t_philo **philos);
+
+/* ft_isdigit.c */
+
+int			ft_isdigit(int c);
 
 #endif

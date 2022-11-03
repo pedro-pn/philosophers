@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 14:32:26 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/25 14:37:16 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/10/28 13:52:50 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	get_fork(t_philo *philo)
 	right_fork = &philo->data->forks[philo->id];
 	pthread_mutex_lock(left_fork);
 	pthread_mutex_lock(right_fork);
+	if (dead_checker(philo->data))
+	{
+		pthread_mutex_unlock(left_fork);
+		pthread_mutex_unlock(right_fork);
+		return ;
+	}
 	eating_act(philo);
 	pthread_mutex_unlock(left_fork);
 	pthread_mutex_unlock(right_fork);
@@ -38,42 +44,24 @@ void	eating_act(t_philo *philo)
 {
 	struct timeval	time;
 
-	if (dead_checker(philo->data))
-		return ;
 	gettimeofday(&time, NULL);
-	death_checker(philo, time);
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_eating(philo, time);
-	usleep(philo->data->tm_to_eat);
-	gettimeofday(&time, NULL);
-	if (dead_checker(philo->data))
-		return ;
-	death_checker(philo, time);
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->die_count = get_time(time);
+	pthread_mutex_unlock(&philo->meal_mutex);
+	print_eating(philo);
+	usleep(philo->data->tm_to_eat * 1000);
 	philo->total_eated++;
 }
 
 void	sleeping_act(t_philo *philo)
 {
-	struct timeval	time;
-
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_sleeping(philo, time);
-	usleep(philo->data->tm_to_sleep);
+	print_sleeping(philo);
+	usleep(philo->data->tm_to_sleep * 1000);
 }
 
 void	thinking_act(t_philo *philo)
 {
-	struct timeval	time;
-
-	if (dead_checker(philo->data))
-		return ;
-	gettimeofday(&time, NULL);
-	print_thinking(philo, time);
+	print_thinking(philo);
 }
 
 void	one_philo(t_philo *philo)
@@ -82,8 +70,8 @@ void	one_philo(t_philo *philo)
 
 	gettimeofday(&time, NULL);
 	printf("%ld %d has taken a fork\n",
-		(get_time(time) - philo->data->start) / 1000, philo->id);
-	usleep(philo->data->tm_to_die);
+		get_time(time) - philo->data->start, philo->id);
+	usleep(philo->data->tm_to_die * 1000);
 	pthread_mutex_lock(&philo->data->die_mutex);
 	philo->data->is_dead = philo->id + 1;
 	pthread_mutex_unlock(&philo->data->die_mutex);
