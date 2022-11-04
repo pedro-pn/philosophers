@@ -20,10 +20,10 @@ all:  ${NAME}
 ${OBJS_PATH}/%.o: %.c
 		@ mkdir -p ${OBJS_PATH}
 		@ printf "${BROWN}Compiling: $< %10s\r${NC}"
-		@ ${CC} ${FLAGS} -c $<  -pthread -o $@ 
+		@ ${CC} ${FLAGS} -c $< -o $@ 
 
 ${NAME}: ${OBJS}
-		@ ${CC} ${FLAGS} ${OBJS} -o $@
+		@ ${CC} ${FLAGS} ${OBJS} -lpthread -o $@
 		@ echo "\12${GREEN}${NAME} successfully compiled!${NC}"
 
 clean:
