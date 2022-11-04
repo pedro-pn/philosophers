@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/31 16:15:32 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:25:34 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ long int	get_lastmeal(t_philo *philo);
 
 /* utils.c */
 
-int			ft_atoi(const char *nptr);
+void		msleep(unsigned int time);
 void		clean_array(void **array);
 long int	get_time(struct timeval time);
 void		clean_program(t_data *data);
@@ -112,5 +112,9 @@ void		delete_meal_mutex(t_philo **philos);
 /* ft_isdigit.c */
 
 int			ft_isdigit(int c);
+
+/* ft_atoi.c */
+
+int			ft_atoi(const char *nptr);
 
 #endif

@@ -1,5 +1,5 @@
 SOURCES =	main.c philo.c init.c run.c  actions.c actions_utils.c utils.c \
-			monitor_utils.c input.c ft_isdigit.c
+			monitor_utils.c input.c ft_isdigit.c ft_atoi.c
 NAME = philo
 OBJS = ${addprefix ${OBJS_PATH}/, ${SOURCES:.c=.o}}
 OBJS_PATH = objs
