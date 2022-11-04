@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:59:08 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/11/04 15:36:17 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:56:32 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	msleep(unsigned int time_ms)
 {
 	struct timeval	time;
 	long int		time_start;
-	
+
 	gettimeofday(&time, NULL);
 	time_start = get_time(time);
 	while (get_time(time) - time_start < time_ms)
