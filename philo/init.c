@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:50:01 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/10/31 16:04:31 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:16:26 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ t_data	*create_data(int argc, char **argv)
 	struct timeval	time;
 
 	data = malloc(sizeof(*data));
+	data->tm_to_die = ft_atoi(argv[2]);
+	data->tm_to_eat = ft_atoi(argv[3]);
+	data->tm_to_sleep = ft_atoi(argv[4]);
+	if (argc == 6)
+		data->total_eat = ft_atoi(argv[5]);
+	else
+		data->total_eat = 0;
 	gettimeofday(&time, NULL);
 	data->num_philo = ft_atoi(argv[1]);
 	data->start = get_time(time);
@@ -25,14 +32,7 @@ t_data	*create_data(int argc, char **argv)
 	data->philos = malloc(sizeof(pthread_t) * (data->num_philo));
 	data->is_dead = 0;
 	data->end = 0;
-	data->tm_to_die = ft_atoi(argv[2]);
-	data->tm_to_eat = ft_atoi(argv[3]);
-	data->tm_to_sleep = ft_atoi(argv[4]);
 	create_mutex(data);
-	if (argc == 6)
-		data->total_eat = ft_atoi(argv[5]);
-	else
-		data->total_eat = 0;
 	return (data);
 }
 

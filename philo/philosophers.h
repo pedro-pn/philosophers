@@ -6,7 +6,7 @@
 /*   By: ppaulo-d <ppaulo-d@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:34:21 by ppaulo-d          #+#    #+#             */
-/*   Updated: 2022/11/04 15:25:34 by ppaulo-d         ###   ########.fr       */
+/*   Updated: 2022/11/07 12:21:51 by ppaulo-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_moni
 /* input.c */
 
 int			check_args(int argc, char **argv);
+int			check_total_to_eat(int argc, char **argv);
+int			check_values(int argc, char **argv);
 
 /* init.c */
 
