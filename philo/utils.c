@@ -21,7 +21,7 @@ void	msleep(unsigned int time_ms)
 	time_start = get_time(time);
 	while (get_time(time) - time_start < time_ms)
 	{
-		usleep(10);
+		usleep(1);
 		gettimeofday(&time, NULL);
 	}
 }

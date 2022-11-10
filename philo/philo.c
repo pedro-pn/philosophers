@@ -27,6 +27,7 @@ void	*monitor(void *arg)
 				return (NULL);
 			id++;
 		}
+		msleep(1);
 	}
 	return (NULL);
 }
